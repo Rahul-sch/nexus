@@ -1,0 +1,24 @@
+{
+  "name": "@nexus/orchestration",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "echo 'TODO: add tests'"
+  },
+  "dependencies": {
+    "@langchain/langgraph": "^0.2.36",
+    "@anthropic-ai/sdk": "^0.35.0",
+    "openai": "^4.77.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.0.0"
+  }
+}

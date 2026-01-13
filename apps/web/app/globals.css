@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* Design Tokens - Apple-inspired Light Mode Only */
+:root {
+  /* Core colors */
+  --background: #ffffff;
+  --background-secondary: #fafafa;
+  --foreground: #1d1d1f;
+  --foreground-secondary: #6e6e73;
+
+  /* Brand */
+  --primary: #0066ff;
+  --primary-hover: #0052cc;
+
+  /* Borders */
+  --border: #e5e5e5;
+  --border-focus: #0066ff;
+
+  /* Status */
+  --success: #34c759;
+  --warning: #ff9f0a;
+  --error: #ff3b30;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-border: var(--border);
+  --color-border-focus: var(--border-focus);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* No dark mode - Light Mode ONLY per spec */
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(0, 102, 255, 0.2);
+}

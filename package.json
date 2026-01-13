@@ -1,0 +1,22 @@
+{
+  "name": "nexus",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Unified Intelligence Interface & Prompt Refinery",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.0"
+  },
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Navbar, Hero, Features, Workflow, CTA, Footer } from "@/components/landing";
+import { Navbar, Hero, Features, Workflow, Demo, CTA, Footer } from "@/components/landing";
 
 export default function LandingPage() {
   return (
@@ -12,6 +12,9 @@ export default function LandingPage() {
       </div>
       <div id="workflow">
         <Workflow />
+      </div>
+      <div id="demo">
+        <Demo />
       </div>
       <CTA />
       <Footer />

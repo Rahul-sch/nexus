@@ -25,14 +25,14 @@ export async function middleware(request: NextRequest) {
 
   const { data } = await supabase.auth.getSession();
 
-  // Protect dashboard routes
-  if (
-    request.nextUrl.pathname.startsWith('/dashboard') ||
-    request.nextUrl.pathname.startsWith('/refinery')
-  ) {
-    if (!data.session) {
-      return NextResponse.redirect(new URL('/login', request.url));
-    }
+  // Protect authenticated routes
+  const protectedPaths = ['/dashboard', '/refinery', '/composer', '/history'];
+  const isProtectedPath = protectedPaths.some(path =>
+    request.nextUrl.pathname.startsWith(path)
+  );
+
+  if (isProtectedPath && !data.session) {
+    return NextResponse.redirect(new URL('/login', request.url));
   }
 
   // Redirect logged-in users away from auth pages

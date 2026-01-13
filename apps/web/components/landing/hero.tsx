@@ -122,10 +122,10 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <Link href="/dashboard">
+          <Link href="/signup">
             <button className="group relative px-8 py-4 rounded-xl bg-[var(--primary)] text-white font-medium text-lg overflow-hidden transition-all hover:shadow-lg hover:shadow-[var(--primary)]/25 hover:scale-[1.02] active:scale-[0.98]">
               <span className="relative z-10 flex items-center gap-2">
-                Get Started
+                Get Started Free
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </span>
               <motion.div
@@ -136,9 +136,9 @@ export function Hero() {
               />
             </button>
           </Link>
-          <Link href="/composer">
+          <Link href="#demo">
             <button className="px-8 py-4 rounded-xl border border-[var(--border)] text-[var(--foreground)] font-medium text-lg transition-all hover:bg-[var(--background-secondary)] hover:border-[var(--foreground-secondary)]/30">
-              Try Demo
+              Watch Demo
             </button>
           </Link>
         </motion.div>

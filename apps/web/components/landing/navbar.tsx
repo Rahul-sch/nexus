@@ -48,11 +48,16 @@ export function Navbar() {
               </Link>
             </div>
 
-            {/* CTA Button */}
+            {/* CTA Buttons */}
             <div className="hidden md:flex items-center gap-3">
-              <Link href="/composer">
+              <Link href="/login">
+                <button className="px-4 py-2.5 rounded-xl text-[var(--foreground)] text-sm font-medium transition-all hover:bg-[var(--background-secondary)]">
+                  Sign In
+                </button>
+              </Link>
+              <Link href="/signup">
                 <button className="px-5 py-2.5 rounded-xl bg-[var(--primary)] text-white text-sm font-medium transition-all hover:bg-[var(--primary-hover)] hover:shadow-lg hover:shadow-[var(--primary)]/25">
-                  Start Refining
+                  Get Started
                 </button>
               </Link>
             </div>
@@ -100,11 +105,18 @@ export function Navbar() {
                 >
                   Dashboard
                 </Link>
-                <Link href="/composer" onClick={() => setMobileMenuOpen(false)}>
-                  <button className="w-full px-5 py-2.5 rounded-xl bg-[var(--primary)] text-white text-sm font-medium">
-                    Start Refining
-                  </button>
-                </Link>
+                <div className="flex gap-2 pt-2">
+                  <Link href="/login" className="flex-1" onClick={() => setMobileMenuOpen(false)}>
+                    <button className="w-full px-4 py-2.5 rounded-xl border border-[var(--border)] text-[var(--foreground)] text-sm font-medium">
+                      Sign In
+                    </button>
+                  </Link>
+                  <Link href="/signup" className="flex-1" onClick={() => setMobileMenuOpen(false)}>
+                    <button className="w-full px-5 py-2.5 rounded-xl bg-[var(--primary)] text-white text-sm font-medium">
+                      Get Started
+                    </button>
+                  </Link>
+                </div>
               </div>
             </motion.div>
           )}

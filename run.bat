@@ -17,7 +17,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo ✓ Node.js installed
-node -v
+call node -v
 
 REM Check if pnpm is installed
 where pnpm >nul 2>nul
@@ -27,7 +27,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo ✓ pnpm installed
-pnpm -v
+call pnpm -v
 echo.
 
 REM Check if node_modules exists

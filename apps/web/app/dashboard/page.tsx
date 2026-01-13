@@ -9,8 +9,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { StatusBadge } from "@/components/arena/status-badge";
 import { KeyringModal } from "@/components/keyring/keyring-modal";
+import { SettingsModal } from "@/components/settings/settings-modal";
 import { useRefineries } from "@/hooks/use-refineries";
 import { useVault } from "@/hooks/use-vault";
+import { useAuth } from "@/hooks/use-auth";
 import {
   Plus,
   Key,
@@ -22,12 +24,15 @@ import {
   ExternalLink,
   AlertCircle,
   ArrowRight,
+  Settings,
 } from "lucide-react";
 
 export default function Dashboard() {
   const [keyringOpen, setKeyringOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const { refineries, total, isLoading, deleteRefinery } = useRefineries();
   const { hasRequiredKeys } = useVault();
+  const { email, logout } = useAuth();
 
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this refinement?")) {
@@ -59,6 +64,12 @@ export default function Dashboard() {
             <span className="ml-auto h-2 w-2 rounded-full bg-[var(--warning)]" />
           )}
         </SidebarItem>
+        <SidebarItem
+          icon={<Settings className="h-4 w-4" />}
+          onClick={() => setSettingsOpen(true)}
+        >
+          Settings
+        </SidebarItem>
       </Sidebar>
 
       {/* Main Content */}
@@ -69,7 +80,11 @@ export default function Dashboard() {
             <Key className="h-4 w-4 mr-2" />
             Keys
           </Button>
-          <UserMenu email="user@example.com" />
+          <UserMenu
+            email={email || "Loading..."}
+            onSettings={() => setSettingsOpen(true)}
+            onLogout={logout}
+          />
         </Header>
 
         {/* Page Content */}
@@ -290,6 +305,9 @@ export default function Dashboard() {
 
       {/* Keyring Modal */}
       <KeyringModal open={keyringOpen} onOpenChange={setKeyringOpen} />
+
+      {/* Settings Modal */}
+      <SettingsModal open={settingsOpen} onOpenChange={setSettingsOpen} />
     </div>
   );
 }

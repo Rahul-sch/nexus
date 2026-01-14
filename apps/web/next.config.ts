@@ -46,6 +46,10 @@ const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
       bodySizeLimit: '1mb'
+    },
+    // Use webpack for production builds (more stable with monorepos)
+    turbo: {
+      root: '..'
     }
   }
 };

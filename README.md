@@ -1,86 +1,155 @@
+<div align="center">
+
 # Nexus - AI Prompt Refinement Platform
 
-> Transform vague ideas into precision-engineered prompts using a council of AI agents.
+**Transform vague ideas into precision-engineered prompts using a council of AI agents.**
+
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://nexusprompty.vercel.app)
+[![Next.js](https://img.shields.io/badge/Next.js-16.1-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=for-the-badge&logo=typescript)](https://typescriptlang.org)
+[![Supabase](https://img.shields.io/badge/Supabase-Auth%20%2B%20DB-3ECF8E?style=for-the-badge&logo=supabase)](https://supabase.com)
+
+[Live Demo](https://nexusprompty.vercel.app) · [Features](#-features) · [Getting Started](#-quick-start) · [Security](#-security)
+
+</div>
 
 ---
 
-## 🎈 For a 5-Year-Old
+## Screenshots
 
-Imagine you have 4 robot friends who help you write better stories:
+<!--
+TO ADD SCREENSHOTS:
+1. Take screenshots of each page
+2. Save them in docs/images/ folder
+3. Replace the placeholder URLs below
+-->
 
-1. **Clarifier** (Blue Robot) - Asks questions like "What do you mean?"
-2. **Drafter** (Purple Robot) - Writes the first story
-3. **Critic** (Cyan Robot) - Says "This part could be better!"
-4. **Finalizer** (Green Robot) - Makes the final perfect story
+### Landing Page
+![Landing Page](docs/images/landing.png)
+*Beautiful landing page with animated AI council visualization*
 
-You type what you want, and these 4 robots work together like a team to make it amazing! They talk to each other, fix mistakes, and give you the best result.
+### Dashboard
+![Dashboard](docs/images/dashboard.png)
+*User dashboard showing refinement history and quick actions*
+
+### Prompt Composer
+![Composer](docs/images/composer.png)
+*Split-screen composer with live AI agent network visualization*
+
+### Password Security
+![Password Strength](docs/images/password-strength.png)
+*Real-time password strength validation with visual feedback*
+
+### Sign Up Flow
+![Sign Up](docs/images/signup.png)
+*Secure sign-up with OAuth options and password requirements*
 
 ---
 
-## 👨‍💻 For Senior Developers
+## What is Nexus?
 
-**Nexus** is a production-ready AI orchestration platform that refines user prompts through a multi-agent debate system built on LangGraph.
+Nexus is an AI-powered prompt engineering platform that uses a **council of 4 specialized AI agents** to collaboratively refine your prompts:
 
-### Architecture
+| Agent | Role | Model |
+|-------|------|-------|
+| **Clarifier** | Identifies ambiguities, asks targeted questions | Claude 3.5 Sonnet |
+| **Drafter** | Creates refined prompt drafts | GPT-4o |
+| **Critic** | Evaluates drafts against quality criteria | GPT-4o-mini |
+| **Finalizer** | Synthesizes feedback into polished prompts | Claude 3.5 Sonnet |
+
+### How It Works
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                     User Input Prompt                        │
-└────────────────────┬────────────────────────────────────────┘
-                     │
-                     ▼
-            ┌────────────────┐
-            │   Clarifier    │ ← Analyzes prompt, asks questions
-            └────────┬───────┘
-                     │
-                     ▼
-            ┌────────────────┐
-            │    Drafter     │ ← Generates initial refinement
-            └────────┬───────┘
-                     │
-                     ▼
-            ┌────────────────┐
-            │     Critic     │ ← Reviews & suggests improvements
-            └────────┬───────┘
-                     │
-                     ▼
-            ┌────────────────┐
-            │   Finalizer    │ ← Produces final optimized prompt
-            └────────┬───────┘
-                     │
-                     ▼
-            ┌────────────────┐
-            │  Final Output  │
-            └────────────────┘
+User Input → Clarifier → Drafter → Critic → Finalizer → Perfect Prompt
+                ↑                      |
+                └──────────────────────┘
+                   (Iterative refinement)
 ```
 
-### Tech Stack
+---
 
-**Frontend:**
-- Next.js 16.1.1 (App Router)
-- React 19.2.3
-- TypeScript 5.7.3
-- Framer Motion 12.26.2 (animations)
-- Tailwind CSS (styling)
+## Features
 
-**Backend:**
-- Next.js API Routes (Node.js runtime)
-- Supabase (Auth + PostgreSQL + RLS)
-- LangGraph 0.2.74 (agent orchestration)
+### Core Features
+- **Multi-Agent Refinement** - 4 AI agents work together to perfect your prompts
+- **Real-time Visualization** - Watch agents collaborate in an animated network
+- **Iteration Control** - Configure 1-3 refinement iterations
+- **Provider Flexibility** - Bring your own API keys (Anthropic, OpenAI)
 
-**AI Providers:**
-- Anthropic Claude 3.5 Sonnet (clarifier, finalizer)
-- OpenAI GPT-4o (drafter)
-- OpenAI GPT-4o-mini (critic)
+### Security Features
+- **Password Strength Enforcement** - 12+ characters with complexity requirements
+- **AES-256-GCM Encryption** - Your API keys are never stored in plaintext
+- **Rate Limiting** - Prevents abuse (10-100 req/min by endpoint)
+- **Row Level Security** - 20+ database policies protect your data
+- **Security Headers** - HSTS, CSP, X-Frame-Options, and more
 
-**Security:**
-- AES-256-GCM encryption (envelope encryption for API keys)
-- Row Level Security (RLS) policies
-- Rate limiting (Upstash Redis + in-memory fallback)
-- Zod input validation
-- Comprehensive security headers (CSP, HSTS, etc.)
+### User Experience
+- **OAuth Login** - Sign in with Google or GitHub
+- **Responsive Design** - Works on desktop and mobile
+- **Dark/Light Mode** - Automatic theme detection
+- **History & Search** - Find and reuse past refinements
 
-### Project Structure
+---
+
+## Quick Start
+
+### Prerequisites
+- Node.js 20+
+- pnpm 10+
+- Supabase account
+- OpenAI and/or Anthropic API keys
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Rahul-sch/nexus.git
+cd nexus
+
+# Install dependencies
+pnpm install
+
+# Copy environment variables
+cp apps/web/.env.example apps/web/.env.local
+
+# Start development server
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000)
+
+### Environment Variables
+
+```bash
+# Supabase (required)
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+
+# Encryption (required, min 32 chars)
+VAULT_ENCRYPTION_SECRET=your-secret-key-min-32-characters
+
+# Rate Limiting (optional)
+UPSTASH_REDIS_REST_URL=https://your-redis.upstash.io
+UPSTASH_REDIS_REST_TOKEN=your-token
+```
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Frontend** | Next.js 16.1, React 19, TypeScript 5.7, Tailwind CSS |
+| **Backend** | Next.js API Routes, LangGraph 0.2 |
+| **Database** | Supabase (PostgreSQL + Auth + RLS) |
+| **AI Providers** | Anthropic Claude, OpenAI GPT-4 |
+| **Security** | AES-256-GCM, Upstash Redis, Zod |
+| **Deployment** | Vercel |
+
+---
+
+## Project Structure
 
 ```
 nexus/
@@ -88,178 +157,110 @@ nexus/
 │   └── web/                    # Next.js application
 │       ├── app/                # App router pages
 │       │   ├── page.tsx        # Landing page
-│       │   ├── dashboard/      # Main dashboard
-│       │   ├── composer/       # Split-screen refinery UI
-│       │   ├── history/        # Refinement history
+│       │   ├── dashboard/      # User dashboard
+│       │   ├── composer/       # Prompt composer
+│       │   ├── signup/         # Sign up with password strength
 │       │   └── api/            # API routes
 │       ├── components/         # React components
 │       │   ├── landing/        # Landing page sections
 │       │   ├── council/        # Agent network visualization
 │       │   └── ui/             # Reusable UI components
-│       ├── lib/                # Utilities
-│       │   ├── vault/          # API key encryption
-│       │   ├── auth.ts         # Authentication helpers
-│       │   ├── rate-limit.ts   # Rate limiting
-│       │   └── logging.ts      # Secure logging with redaction
-│       └── supabase/
-│           └── migrations/     # Database schema
+│       └── lib/                # Utilities
+│           ├── vault/          # API key encryption
+│           ├── password-strength.ts  # Password validation
+│           └── rate-limit.ts   # Rate limiting
 ├── packages/
 │   ├── orchestration/          # LangGraph agent logic
-│   │   ├── agents/             # Individual agent definitions
-│   │   ├── graph.ts            # State graph orchestration
-│   │   └── state.ts            # Shared state type
 │   └── shared/                 # Shared types & schemas
-│       └── schemas.ts          # Zod validation schemas
-└── turbo.json                  # Monorepo configuration
+└── docs/
+    └── images/                 # README screenshots
 ```
-
-### Key Features
-
-**1. Multi-Agent Refinement Pipeline**
-- 4-stage iterative refinement (clarify → draft → critique → finalize)
-- Configurable max iterations (1-3) and temperature (0-1.5)
-- State machine orchestration via LangGraph
-- Real-time status updates via polling
-
-**2. Secure API Key Management**
-- Client-side encrypted storage (never sent to server in plaintext)
-- Server-side envelope encryption (AES-256-GCM)
-- Per-user, per-provider key isolation
-- Key hint display (last 4 chars only)
-
-**3. Split-Screen Composer**
-- Left panel: Input/output with collapsible config
-- Right panel: Animated council network visualization
-- Live agent status indicators during processing
-- Real-time token usage tracking
-
-**4. Production-Grade Security**
-- ✅ 0 dependency vulnerabilities (audited)
-- ✅ All API routes protected with auth + rate limiting
-- ✅ RLS policies on all database tables
-- ✅ Credential redaction in logs (10+ patterns)
-- ✅ Security headers (CSP, HSTS, X-Frame-Options)
-- ✅ Input validation with Zod schemas
-- ✅ User quota enforcement (daily/monthly token limits)
-
-**5. User Experience**
-- Animated landing page with gradient orbs
-- Interactive workflow visualization
-- Refinement history with filters & search
-- Mobile-responsive design
-- Toast notifications for feedback
-
-### Database Schema
-
-**Core Tables:**
-- `users` - User profiles with quotas
-- `vault_entries` - Encrypted API keys (AES-256-GCM)
-- `refineries` - Refinement jobs with status tracking
-- `messages` - Agent conversation history
-- `artifacts` - Structured outputs (drafts, critiques, finals)
-
-**Security:**
-- All tables have RLS policies (`auth.uid()` checks)
-- Foreign keys with CASCADE deletes
-- CHECK constraints on enums
-- Unique constraints on `(user_id, provider_type)`
-
-### API Endpoints
-
-| Endpoint | Method | Auth | Rate Limit | Description |
-|----------|--------|------|------------|-------------|
-| `/api/vault` | POST | ✅ | 20/min | Store encrypted API key |
-| `/api/vault` | GET | ✅ | 20/min | Retrieve user's keys |
-| `/api/refineries` | POST | ✅ | 10/min | Create refinement job |
-| `/api/refineries` | GET | ✅ | 100/min | List user's refineries |
-| `/api/refineries/[id]` | GET | ✅ | 100/min | Get refinery details |
-| `/api/refineries/[id]` | DELETE | ✅ | 100/min | Delete refinery |
-
-### Environment Variables
-
-```bash
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-
-# Encryption (min 32 chars)
-VAULT_ENCRYPTION_SECRET=your-secret-key-here
-
-# Rate Limiting (optional, falls back to in-memory)
-UPSTASH_REDIS_REST_URL=https://your-redis.upstash.io
-UPSTASH_REDIS_REST_TOKEN=your-token
-
-# Development
-DEV_INLINE_WORKER=true
-```
-
-### Quick Start
-
-**Option 1: Run script (recommended)**
-```bash
-.\run.bat          # Windows
-./run.sh           # Linux/Mac
-```
-
-**Option 2: Manual**
-```bash
-pnpm install       # Install dependencies
-pnpm build         # Build packages + Next.js
-pnpm dev           # Start dev server
-```
-
-Open **http://localhost:3000**
-
-### Testing
-
-```bash
-pnpm audit         # Dependency security scan
-pnpm type-check    # TypeScript validation
-pnpm lint          # ESLint check
-```
-
-### Deployment
-
-**Production Checklist:**
-- [ ] Remove `DEV_INLINE_WORKER=true`
-- [ ] Configure Upstash Redis for rate limiting
-- [ ] Set up Supabase database backups
-- [ ] Enable error monitoring (Sentry)
-- [ ] Test CSP headers (may need style adjustments)
-
-See [SECURITY_AUDIT.md](./SECURITY_AUDIT.md) for full security review.
 
 ---
 
-## 📊 Performance Metrics
+## Security
 
-- **Build Time:** ~20-30s
-- **Startup Time:** ~3-5s
-- **API Response:** <200ms (cached keys)
-- **Refinement Time:** ~30-90s (depends on iterations)
-- **Token Usage:** ~5K-15K per refinement
+Nexus implements enterprise-grade security:
 
----
+| Feature | Implementation |
+|---------|----------------|
+| **Password Policy** | 12+ chars, uppercase, lowercase, number, special char |
+| **Encryption** | AES-256-GCM envelope encryption for API keys |
+| **Authentication** | Supabase Auth with OAuth (Google, GitHub) |
+| **Authorization** | Row Level Security (20+ policies) |
+| **Rate Limiting** | Sliding window (Upstash Redis) |
+| **Input Validation** | Zod schemas on all endpoints |
+| **Security Headers** | HSTS, CSP, X-Frame-Options, COEP, COOP |
 
-## 🔒 Security
+### Security Rating
 
-- **Encryption:** AES-256-GCM with envelope encryption
-- **Authentication:** Supabase Auth (JWT sessions)
-- **Authorization:** Row Level Security (RLS) policies
-- **Rate Limiting:** Sliding window (Upstash Redis)
-- **Input Validation:** Zod schemas (all endpoints)
-- **Logging:** Credential redaction (10+ patterns)
-- **Headers:** CSP, HSTS, X-Frame-Options, etc.
-
-**Security Audit Status:** ✅ Production Ready (see `SECURITY_AUDIT.md`)
+Test your deployment: [securityheaders.com](https://securityheaders.com/?q=nexusprompty.vercel.app)
 
 ---
 
-## 📄 License
+## API Endpoints
+
+| Endpoint | Method | Rate Limit | Description |
+|----------|--------|------------|-------------|
+| `/api/vault` | POST | 20/min | Store encrypted API key |
+| `/api/vault` | GET | 60/min | Retrieve user's keys |
+| `/api/refineries` | POST | 10/min | Create refinement job |
+| `/api/refineries` | GET | 60/min | List refineries |
+| `/api/refineries/[id]` | GET | 60/min | Get refinery details |
+| `/api/refineries/[id]` | DELETE | 60/min | Delete refinery |
+
+All endpoints require authentication.
+
+---
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push to GitHub
+2. Import in Vercel
+3. Set environment variables
+4. Deploy!
+
+See [DEPLOYMENT_STATUS.md](DEPLOYMENT_STATUS.md) for detailed instructions.
+
+### Production Checklist
+
+- [ ] Set all environment variables
+- [ ] Apply database migrations
+- [ ] Configure OAuth providers in Supabase
+- [ ] Test password strength enforcement
+- [ ] Verify security headers
+
+---
+
+## Performance
+
+| Metric | Value |
+|--------|-------|
+| Build Time | ~15-20s |
+| Cold Start | ~2-3s |
+| API Response | <200ms |
+| Refinement Time | 30-90s |
+
+---
+
+## Contributing
+
+This is a private project. Contact [Rahul](https://github.com/Rahul-sch) for collaboration opportunities.
+
+---
+
+## License
 
 Proprietary - All Rights Reserved
 
 ---
 
-**Built with ❤️ by Rahul**
+<div align="center">
+
+**Built with love by Rahul**
+
+[Live Demo](https://nexusprompty.vercel.app) · [GitHub](https://github.com/Rahul-sch/nexus)
+
+</div>

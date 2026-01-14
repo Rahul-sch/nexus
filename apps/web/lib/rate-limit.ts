@@ -13,9 +13,10 @@ export interface RateLimitResult {
 const memoryStore = new Map<string, { count: number; resetTime: number }>();
 
 const LIMITS = {
-  refine: { requests: 10, windowMs: 60000 },    // 10 per minute
-  vault: { requests: 20, windowMs: 60000 },     // 20 per minute
-  default: { requests: 100, windowMs: 60000 },  // 100 per minute
+  refine: { requests: 10, windowMs: 60000 },    // 10 per minute (expensive operations)
+  vault: { requests: 20, windowMs: 60000 },     // 20 per minute (sensitive operations)
+  read: { requests: 60, windowMs: 60000 },      // 60 per minute (read operations - prevents enumeration)
+  default: { requests: 100, windowMs: 60000 },  // 100 per minute (general API usage)
 } as const;
 
 async function memoryRateLimit(
@@ -93,7 +94,7 @@ async function upstashRateLimit(
 
 export async function rateLimit(
   identifier: string,
-  endpoint: 'refine' | 'vault' | 'default' = 'default'
+  endpoint: 'refine' | 'vault' | 'read' | 'default' = 'default'
 ): Promise<RateLimitResult> {
   // Use Upstash if configured, otherwise fall back to memory
   if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {

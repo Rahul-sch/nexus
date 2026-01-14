@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createAdminSupabaseClient } from '@/lib/supabase/admin';
 import { RefineCancelSchema } from '@nexus/shared';
 import { getUserId } from '@/lib/auth';
+import { rateLimit } from '@/lib/rate-limit';
 import { redactLog, serializeError } from '@/lib/logging';
 
 export const runtime = 'nodejs';
@@ -11,6 +12,15 @@ export async function POST(req: NextRequest) {
     const userId = await getUserId();
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Rate limit cancel operations
+    const rateLimitResult = await rateLimit(userId, 'default');
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded', retryAfter: rateLimitResult.retryAfter },
+        { status: 429, headers: { 'Retry-After': String(rateLimitResult.retryAfter) } }
+      );
     }
 
     const body = await req.json();

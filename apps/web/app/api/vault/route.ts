@@ -105,11 +105,20 @@ export async function POST(req: NextRequest) {
 }
 
 // GET: List keys (metadata only)
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
     const userId = await getUserId();
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Rate limit read operations to prevent enumeration
+    const rateLimitResult = await rateLimit(userId, 'read');
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded', retryAfter: rateLimitResult.retryAfter },
+        { status: 429, headers: { 'Retry-After': String(rateLimitResult.retryAfter) } }
+      );
     }
 
     const supabase = createAdminSupabaseClient();

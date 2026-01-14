@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminSupabaseClient } from '@/lib/supabase/admin';
 import { getUserId } from '@/lib/auth';
+import { rateLimit } from '@/lib/rate-limit';
 import { redactLog, serializeError } from '@/lib/logging';
 
 export const runtime = 'nodejs';
@@ -14,6 +15,15 @@ export async function GET(
     const userId = await getUserId();
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Rate limit to prevent enumeration attacks
+    const rateLimitResult = await rateLimit(userId, 'read');
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded', retryAfter: rateLimitResult.retryAfter },
+        { status: 429, headers: { 'Retry-After': String(rateLimitResult.retryAfter) } }
+      );
     }
 
     const { id } = await params;
@@ -68,6 +78,15 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Rate limit delete operations
+    const rateLimitResult = await rateLimit(userId, 'default');
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded', retryAfter: rateLimitResult.retryAfter },
+        { status: 429, headers: { 'Retry-After': String(rateLimitResult.retryAfter) } }
+      );
+    }
+
     const { id } = await params;
     const supabase = createAdminSupabaseClient();
 
@@ -119,6 +138,15 @@ export async function PATCH(
     const userId = await getUserId();
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Rate limit update operations
+    const rateLimitResult = await rateLimit(userId, 'default');
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded', retryAfter: rateLimitResult.retryAfter },
+        { status: 429, headers: { 'Retry-After': String(rateLimitResult.retryAfter) } }
+      );
     }
 
     const { id } = await params;

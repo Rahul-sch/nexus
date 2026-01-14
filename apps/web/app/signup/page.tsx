@@ -7,12 +7,15 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Mail, Lock, Loader2, ArrowLeft, Eye, EyeOff, User, CheckCircle2 } from "lucide-react";
+import { PasswordStrengthIndicator } from "@/components/ui/password-strength-indicator";
+import { validatePasswordStrength } from "@/lib/password-strength";
 
 export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [passwordValid, setPasswordValid] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -27,6 +30,14 @@ export default function SignupPage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
+
+    // Client-side password validation
+    const passwordCheck = validatePasswordStrength(password);
+    if (!passwordCheck.isValid) {
+      setError('Password does not meet security requirements. Please check the requirements below.');
+      setLoading(false);
+      return;
+    }
 
     const { error } = await supabase.auth.signUp({
       email,
@@ -288,15 +299,15 @@ export default function SignupPage() {
                 <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
                   Password
                 </label>
-                <div className="relative">
+                <div className="relative mb-3">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[var(--foreground-secondary)]" />
                   <input
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full pl-10 pr-12 py-3 rounded-lg border border-[var(--border)] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent transition-all"
-                    placeholder="••••••••"
-                    minLength={6}
+                    placeholder="••••••••••••"
+                    minLength={12}
                     required
                   />
                   <button
@@ -307,15 +318,18 @@ export default function SignupPage() {
                     {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
                 </div>
-                <p className="text-xs text-[var(--foreground-secondary)] mt-1">
-                  Minimum 6 characters
-                </p>
+
+                {/* Password Strength Indicator */}
+                <PasswordStrengthIndicator
+                  password={password}
+                  onValidationChange={setPasswordValid}
+                />
               </div>
 
               <Button
                 type="submit"
                 className="w-full h-12 text-base"
-                disabled={loading}
+                disabled={loading || (password.length > 0 && !passwordValid)}
               >
                 {loading ? (
                   <>

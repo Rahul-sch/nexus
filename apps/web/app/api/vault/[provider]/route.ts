@@ -70,6 +70,15 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Rate limit read operations to prevent enumeration
+    const rateLimitResult = await rateLimit(userId, 'read');
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded', retryAfter: rateLimitResult.retryAfter },
+        { status: 429, headers: { 'Retry-After': String(rateLimitResult.retryAfter) } }
+      );
+    }
+
     const { provider } = await params;
     const supabase = createAdminSupabaseClient();
 

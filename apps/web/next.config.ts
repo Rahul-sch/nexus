@@ -7,20 +7,16 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      isDev
-        ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
-        : "script-src 'self' 'sha256-...'", // In production, use specific SHA hashes for inline scripts
-      isDev
-        ? "style-src 'self' 'unsafe-inline'"
-        : "style-src 'self' 'unsafe-inline'", // Keep unsafe-inline for Tailwind/CSS-in-JS (consider nonce in future)
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // Allow inline scripts for Vercel/Next.js
+      "style-src 'self' 'unsafe-inline'", // Allow inline styles for Tailwind
       "img-src 'self' data: https:",
       "font-src 'self' data:",
       "connect-src 'self' https://*.supabase.co wss://*.supabase.co" + (isDev ? " ws://localhost:* http://localhost:*" : ""),
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
-      "object-src 'none'", // Prevent Flash/Java/ActiveX
-      "upgrade-insecure-requests", // Upgrade HTTP to HTTPS
+      "object-src 'none'",
+      "upgrade-insecure-requests",
     ].join('; ')
   },
   { key: 'X-Frame-Options', value: 'DENY' },
